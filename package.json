@@ -16,6 +16,7 @@
     "react": "^16.13.0",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.13.0",
+    "react-firebase-file-uploader": "^2.4.3",
     "react-scripts": "3.4.0",
     "typeface-inter": "^3.12.0",
     "typescript": "^3.8.3"

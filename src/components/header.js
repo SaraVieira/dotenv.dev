@@ -15,7 +15,9 @@ const Header = () => {
         tokens.marginBottom.SPACING_16
       )}
     >
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
       {!state.isLoggedIn ? (
         <button
           className={compose(

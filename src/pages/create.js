@@ -1,5 +1,7 @@
+/* eslint-disable operator-linebreak */
 import React, { useState } from 'react'
 import { compose, tokens } from 'classy-ui/macro'
+import { navigate } from '@reach/router'
 import FileUploader from 'react-firebase-file-uploader'
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import { myFirebase } from '../firebase/firebase'
@@ -16,6 +18,13 @@ function App() {
   const [editorScreenshot, setEditorScreenshot] = useState('')
   const [terminalConfig, setTerminalConfig] = useState('')
   const [terminalScreenshot, setTerminalScreenshot] = useState('')
+
+  const disabled =
+    !vscodeConfig ||
+    !editorScreenshot ||
+    !terminalConfig ||
+    !terminalScreenshot ||
+    state.isCreating
 
   const handleUploadSuccessEditor = filename => {
     myFirebase
@@ -35,8 +44,8 @@ function App() {
       .then(url => setTerminalScreenshot(url))
   }
 
-  const submit = () => {
-    actions.addEnvironment({
+  const submit = async () => {
+    await actions.addEnvironment({
       terminal: {
         screenshot: terminalScreenshot,
         config: terminalConfig,
@@ -49,6 +58,7 @@ function App() {
       },
       extra
     })
+    navigate(`/environment/${state.createdId}`)
   }
 
   const handleProgress = p => setProgress(p)
@@ -74,7 +84,12 @@ function App() {
         </select>
         <h3>Upload a Screenshot</h3>
         {editorScreenshot ? (
-          <img src={editorScreenshot} width="300" alt="Editor" />
+          <>
+            <img src={editorScreenshot} width="300" alt="Editor" />
+            <button type="button" onClick={() => setEditorScreenshot(null)}>
+              Delete Screenshot
+            </button>
+          </>
         ) : (
           <>
             {progress}
@@ -111,7 +126,12 @@ function App() {
         </select>
         <h3>Upload a Screenshot</h3>
         {terminalScreenshot ? (
-          <img src={terminalScreenshot} width="300" alt="Editor" />
+          <>
+            <img src={terminalScreenshot} width="300" alt="Terminal" />
+            <button type="button" onClick={() => setTerminalScreenshot(null)}>
+              Delete Screenshot
+            </button>
+          </>
         ) : (
           <>
             {progress}
@@ -141,8 +161,8 @@ function App() {
         <h2>Anything you want to add?</h2>
         <textarea value={extra} onChange={e => setExtra(e.target.value)} />
 
-        <button type="submit" onClick={submit}>
-          Add your environment
+        <button disabled={disabled} type="submit" onClick={submit}>
+          {state.isCreating ? 'Creating' : 'Add your environment'}
         </button>
       </div>
     </div>

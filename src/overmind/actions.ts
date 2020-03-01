@@ -33,11 +33,12 @@ export const logout: AsyncAction = async ({ state }) => {
 
 export const addEnvironment: AsyncAction = async ({ state }, data: any) => {
   state.isCreating = true
-  await db.collection('environments').add({
+  const newOne = await db.collection('environments').add({
     ...data,
     user: state.user
   })
   state.isCreating = false
+  state.createdId = newOne.id
 }
 
 export const getEnvironment: AsyncAction = async ({ state }, id: any) => {

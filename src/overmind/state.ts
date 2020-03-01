@@ -30,6 +30,7 @@ type State = {
   isCreating: boolean
   isLoadingEnvironment: boolean
   isLoadingEnvironments: boolean
+  createdId: string
   environments: Environment[]
   environment: {
     [id: string]: Environment
@@ -37,6 +38,7 @@ type State = {
 }
 
 export const state: State = {
+  createdId: null,
   environments: [],
   isLoadingEnvironments: false,
   user: null,

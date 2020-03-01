@@ -1,6 +1,6 @@
 import { Derive } from 'overmind'
 
-type User = {
+export type User = {
   uid: string | null | undefined
   displayName: string | null | undefined
   photoURL: string | null | undefined

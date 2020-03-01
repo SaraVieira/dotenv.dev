@@ -1,6 +1,6 @@
 import { AsyncAction, Action } from 'overmind'
 import { myFirebase, twitterAuthProvider, db } from '../firebase/firebase'
-import { Environment } from './state'
+import { Environment, User } from './state'
 
 export const loginWithTwitter: AsyncAction = async context => {
   try {
@@ -13,12 +13,17 @@ export const loginWithTwitter: AsyncAction = async context => {
       photoURL: user?.photoURL,
       username: result.additionalUserInfo?.username
     }
+
     var newUser = myFirebase.auth().currentUser
     if (newUser)
       newUser.updateEmail(
         `${result.additionalUserInfo?.username as string}@deleteme.com`
       )
   } catch (e) {}
+}
+
+export const setUser: Action = ({ state }, user: null) => {
+  state.user = user
 }
 
 export const logout: AsyncAction = async ({ state }) => {
@@ -37,7 +42,6 @@ export const getEnvironment: AsyncAction = async ({ state }, id: any) => {
   if (state.environments.find(e => e.id === id)) {
     state.environment[id] = state.environments[newEnv]
   } else {
-    console.log('wat')
     state.isLoadingEnvironment = true
     var docRef = db.collection('environments').doc(id)
     const doc = await docRef.get()

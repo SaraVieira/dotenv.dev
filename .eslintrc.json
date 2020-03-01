@@ -1,0 +1,62 @@
+{
+  "extends": ["airbnb", "airbnb"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
+
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/sort-comp": 0,
+    "react/destructuring-assignment": 0,
+    "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/static-property-placement": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-cycle": "warn",
+    "react/prop-types": 0,
+    "arrow-parens": 0,
+    "prefer-destructuring": 0,
+    "no-async-promise-executor": "warn",
+    "import/prefer-default-export": 0,
+    "class-methods-use-this": 0,
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "no-console": ["error", { "allow": ["error", "warn"] }],
+    "prefer-template": "off",
+    "no-plusplus": 0,
+    "no-underscore-dangle": "off",
+    "no-nested-ternary": "warn",
+    "react/require-default-props": "off",
+    "import/no-named-default": 0,
+    "import/no-webpack-loader-syntax": 0,
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never"
+      }
+    ],
+    "import/default": "error",
+    "no-param-reassign": ["error", { "props": false }],
+    "camelcase": 0,
+    "comma-dangle": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "semi": "off",
+    "no-bitwise": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "no-restricted-globals": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ]
+  }
+}

@@ -3,6 +3,7 @@ import { myFirebase } from '../firebase/firebase'
 import { User } from './state'
 
 export const onInitialize: OnInitialize = async ({ actions }) => {
+  actions.getEnvironments()
   await myFirebase.auth().onAuthStateChanged((user: any) => {
     if (user) {
       // @ts-ignore

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { navigate } from '@reach/router'
 import { compose, tokens } from 'classy-ui/macro'
 
 import { useOvermind } from '../overmind/index.ts'
 
 function Login() {
-  const { actions } = useOvermind()
+  const { actions, state } = useOvermind()
+
+  useEffect(() => {
+    if (state.isLoggedIn) {
+      navigate('/')
+    }
+  }, [state.isLoggedIn])
 
   return (
     <div
@@ -21,8 +28,8 @@ function Login() {
         className={compose(
           tokens.backgroundColor.BLUE_400,
           tokens.color.WHITE,
-          tokens.paddingHorizontal.SPACING_03,
-          tokens.paddingVertical.SPACING_02,
+          tokens.paddingHorizontal.SPACING_3,
+          tokens.paddingVertical.SPACING_2,
           tokens.borderWidth.NONE,
           tokens.borderRadius.SMALL
         )}

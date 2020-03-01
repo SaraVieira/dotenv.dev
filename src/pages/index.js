@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from '@reach/router'
 import { compose, tokens } from 'classy-ui/macro'
 import { useOvermind } from '../overmind/index.ts'
-import Code from '../components/code'
+// import Code from '../components/code'
 
 const Index = () => {
-  const { actions, state } = useOvermind()
-
-  useEffect(() => {
-    actions.getEnvironments()
-  }, [])
+  const { state } = useOvermind()
 
   if (state.isLoadingEnvironments) {
     return (
@@ -29,12 +25,26 @@ const Index = () => {
       className={compose(
         tokens.marginVertical.SPACING_12,
         tokens.width.WIDTH_10_12,
-        tokens.marginHorizontal.AUTO
+        tokens.marginHorizontal.AUTO,
+        tokens.display.GRID,
+        tokens.gridTemplateColumns.COLUMNS_3,
+        tokens.gap.SPACING_2
       )}
     >
       {state.environments.map(env => (
         <Link key={env.id} to={`/environment/${env.id}`}>
-          <Code code={JSON.stringify(env, null, 2)} />
+          <div className={compose(tokens.maxWidth.FULL)}>
+            <img
+              className={compose(tokens.maxWidth.FULL)}
+              src={env.editor.screenshot}
+              alt={env.editor.type}
+            />
+            <img
+              className={compose(tokens.maxWidth.FULL)}
+              src={env.terminal.screenshot}
+              alt={env.terminal.type}
+            />
+          </div>
         </Link>
       ))}
     </div>

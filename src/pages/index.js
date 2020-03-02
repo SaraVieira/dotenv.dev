@@ -58,12 +58,13 @@ const Index = () => {
                 <span
                   className={compose(
                     tokens.position.ABSOLUTE,
-                    tokens.backgroundColor.GRAY_800,
+                    tokens.backgroundColor.GRAY_900,
                     tokens.color.GRAY_100,
                     tokens.paddingHorizontal.SPACING_6,
                     tokens.paddingVertical.SPACING_3,
                     tokens.bottom.NONE,
-                    tokens.fontSize.BASE
+                    tokens.fontSize.BASE,
+                    tokens.fontWeight.BOLD
                   )}
                 >
                   {hover === env.id ? env.terminal.type : env.editor.type}
@@ -75,20 +76,27 @@ const Index = () => {
             className={compose(
               tokens.display.FLEX,
               tokens.alignItems.CENTER,
-              tokens.width.WIDTH_10_12,
-              tokens.marginTop.SPACING_4,
-              tokens.marginHorizontal.AUTO
+              tokens.justifyContent.BETWEEN,
+              tokens.padding.SPACING_4,
+              tokens.marginHorizontal.AUTO,
+              tokens.backgroundColor.GRAY_900,
+              tokens.color.GRAY_100
             )}
           >
-            <img
-              src={env.user.photoURL}
-              alt={env.user.username}
-              className={compose(
-                tokens.borderRadius.FULL,
-                tokens.marginRight.SPACING_3
-              )}
-            />
-            <p>{env.user.username}</p>
+            <div
+              className={compose(tokens.display.FLEX, tokens.alignItems.CENTER)}
+            >
+              <img
+                className={compose(
+                  tokens.borderRadius.FULL,
+                  tokens.marginRight.SPACING_3
+                )}
+                src={env.user.photoURL}
+                alt={env.user.username}
+              />
+              <p>{env.user.username}</p>
+            </div>
+            <div>#{env.theme}</div>
           </div>
         </div>
       ))}

@@ -49,6 +49,7 @@ function App() {
 
   const submit = async () => {
     await actions.addEnvironment({
+      theme,
       terminal: {
         screenshot: terminalScreenshot,
         config: terminalConfig,

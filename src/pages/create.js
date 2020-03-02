@@ -69,6 +69,9 @@ function App() {
   return (
     <div className="App">
       <div
+        style={{
+          maxWidth: 700
+        }}
         className={compose(
           tokens.marginVertical.SPACING_12,
           tokens.width.WIDTH_10_12,
@@ -83,7 +86,7 @@ function App() {
           value={theme}
         >
           <Radio variantColor="green" value="dark">
-            First
+            Dark
           </Radio>
           <Radio variantColor="green" value="light">
             Light

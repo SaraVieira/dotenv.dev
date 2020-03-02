@@ -10,9 +10,11 @@ import { useOvermind } from '../overmind/index.ts'
 
 function App() {
   const { state, actions } = useOvermind()
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(null)
+  const [progressTerminal, setProgressTerminal] = useState(null)
   const [editorType, setEditorType] = useState(state.editors[0])
   const [terminalType, setTerminalType] = useState(state.terminals[0])
+  const [theme, setTheme] = useState()
   const [extra, setExtra] = useState('')
   const [vscodeConfig, setVscodeConfig] = useState('')
   const [editorScreenshot, setEditorScreenshot] = useState('')
@@ -24,6 +26,7 @@ function App() {
     !editorScreenshot ||
     !terminalConfig ||
     !terminalScreenshot ||
+    !theme ||
     state.isCreating
 
   const handleUploadSuccessEditor = filename => {
@@ -61,8 +64,6 @@ function App() {
     navigate(`/environment/${state.createdId}`)
   }
 
-  const handleProgress = p => setProgress(p)
-
   return (
     <div className="App">
       <div
@@ -73,6 +74,27 @@ function App() {
         )}
       >
         <h1>Add your environment</h1>
+        <h2>Theme</h2>
+        <input
+          type="radio"
+          id="dark"
+          name="theme"
+          value="dark"
+          onChange={() => setTheme('dark')}
+          checked={theme === 'dark'}
+        />
+        <label htmlFor="dark">Dark</label>
+        <br />
+        <input
+          type="radio"
+          id="light"
+          name="theme"
+          value="light"
+          onChange={() => setTheme('light')}
+          checked={theme === 'light'}
+        />
+        <label htmlFor="light">Light</label>
+        <br />
         <h2>Editor</h2>
         <h3>Select Your editor</h3>
         <select onChange={e => setEditorType(e.target.value)}>
@@ -92,15 +114,21 @@ function App() {
           </>
         ) : (
           <>
-            {progress}
             <FileUploader
+              className="file-input"
               accept="image/*"
-              name="avatar"
+              name="editorImage"
+              id="editorImage"
               randomizeFilename
               storageRef={myFirebase.storage().ref('images')}
               onUploadSuccess={handleUploadSuccessEditor}
-              onProgress={handleProgress}
+              onProgress={p => setProgress(p)}
             />
+            <label htmlFor="editorImage">
+              {typeof progress === 'number'
+                ? `${progress}% done`
+                : 'Choose an image'}
+            </label>
           </>
         )}
         <h3>Upload your User Settings</h3>
@@ -134,15 +162,20 @@ function App() {
           </>
         ) : (
           <>
-            {progress}
             <FileUploader
               accept="image/*"
               name="avatar"
+              className="file-input"
               randomizeFilename
               storageRef={myFirebase.storage().ref('images')}
               onUploadSuccess={handleUploadSuccessTerminal}
-              onProgress={handleProgress}
+              onProgress={p => setProgressTerminal(p)}
             />
+            <label htmlFor="editorImage">
+              {typeof progressTerminal === 'number'
+                ? `${progressTerminal}% done`
+                : 'Choose an image'}
+            </label>
           </>
         )}
         <h3>Upload your User Settings</h3>

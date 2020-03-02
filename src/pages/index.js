@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from '@reach/router'
 import { compose, tokens } from 'classy-ui/macro'
 import { useOvermind } from '../overmind/index.ts'
 // import Code from '../components/code'
+import './pages.css'
 
 const Index = () => {
   const { state } = useOvermind()
+  const [hover, setHover] = useState()
 
   if (state.isLoadingEnvironments) {
     return (
@@ -32,20 +34,63 @@ const Index = () => {
       )}
     >
       {state.environments.map(env => (
-        <Link key={env.id} to={`/environment/${env.id}`}>
-          <div className={compose(tokens.maxWidth.FULL)}>
+        <div>
+          <Link key={env.id} to={`/environment/${env.id}`}>
+            <div
+              onMouseEnter={() => setHover(env.id)}
+              onMouseLeave={() => setHover(null)}
+              style={{ height: 200 }}
+              className={compose(
+                tokens.maxWidth.FULL,
+                tokens.display.FLEX,
+                tokens.position.RELATIVE
+              )}
+            >
+              <div
+                className="screenshot"
+                style={{
+                  backgroundImage:
+                    hover === env.id
+                      ? `url(${env.terminal.screenshot})`
+                      : `url(${env.editor.screenshot})`
+                }}
+              >
+                <span
+                  className={compose(
+                    tokens.position.ABSOLUTE,
+                    tokens.backgroundColor.GRAY_800,
+                    tokens.color.GRAY_100,
+                    tokens.paddingHorizontal.SPACING_6,
+                    tokens.paddingVertical.SPACING_3,
+                    tokens.bottom.NONE,
+                    tokens.fontSize.BASE
+                  )}
+                >
+                  {hover === env.id ? env.terminal.type : env.editor.type}
+                </span>
+              </div>
+            </div>
+          </Link>
+          <div
+            className={compose(
+              tokens.display.FLEX,
+              tokens.alignItems.CENTER,
+              tokens.width.WIDTH_10_12,
+              tokens.marginTop.SPACING_4,
+              tokens.marginHorizontal.AUTO
+            )}
+          >
             <img
-              className={compose(tokens.maxWidth.FULL)}
-              src={env.editor.screenshot}
-              alt={env.editor.type}
+              src={env.user.photoURL}
+              alt={env.user.username}
+              className={compose(
+                tokens.borderRadius.FULL,
+                tokens.marginRight.SPACING_3
+              )}
             />
-            <img
-              className={compose(tokens.maxWidth.FULL)}
-              src={env.terminal.screenshot}
-              alt={env.terminal.type}
-            />
+            <p>{env.user.username}</p>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   )

@@ -8,6 +8,7 @@ export type User = {
 }
 
 export type Environment = {
+  user: User
   id: string
   editor: {
     config: string
@@ -35,9 +36,11 @@ type State = {
   environment: {
     [id: string]: Environment
   }
+  theme: 'dark' | 'light' | 'all'
 }
 
 export const state: State = {
+  theme: 'all',
   createdId: null,
   environments: [],
   isLoadingEnvironments: false,

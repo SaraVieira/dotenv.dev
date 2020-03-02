@@ -7934,6 +7934,11 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
+picnic@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/picnic/-/picnic-6.5.2.tgz#3c307b1556eeed3da4fe63a18d9f1ef77690ecec"
+  integrity sha512-USH4JQiJVxrdW5vmFd5Ko1LSncCv6pzHj2Fujule64PZssB6VqZ569mfB4XDDs8dKN/KiezQ+Vvnft4/VLX7mA==
+
 picomatch@^2.0.4, picomatch@^2.0.7:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.1.tgz#21bac888b6ed8601f831ce7816e335bc779f0a4a"

@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp _redirects build/_redirects",
     "pretest": "npm run lint",
     "test": "react-scripts test",
     "posttest": "npm run format",

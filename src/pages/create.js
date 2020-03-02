@@ -163,6 +163,7 @@ function App() {
             <FileUploader
               accept="image/*"
               name="terminalImage"
+              id="terminalImage"
               className="file-input"
               randomizeFilename
               storageRef={myFirebase.storage().ref('images')}

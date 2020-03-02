@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 import React, { useState } from 'react'
 import { compose, tokens } from 'classy-ui/macro'
-import { Radio, RadioGroup, Select, Button } from '@chakra-ui/core'
+import { Radio, RadioGroup, Select, Button, Textarea } from '@chakra-ui/core'
 import { navigate } from '@reach/router'
 import FileUploader from 'react-firebase-file-uploader'
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -159,14 +159,14 @@ function App() {
           <>
             <FileUploader
               accept="image/*"
-              name="editorImage"
+              name="terminalImage"
               className="file-input"
               randomizeFilename
               storageRef={myFirebase.storage().ref('images')}
               onUploadSuccess={handleUploadSuccessTerminal}
               onProgress={p => setProgressTerminal(p)}
             />
-            <label htmlFor="editorImage">
+            <label htmlFor="terminalImage">
               {typeof progressTerminal === 'number'
                 ? `${progressTerminal}% done`
                 : 'Choose an image'}
@@ -187,11 +187,17 @@ function App() {
         />
 
         <h2>Anything you want to add?</h2>
-        <textarea value={extra} onChange={e => setExtra(e.target.value)} />
-
-        <button disabled={disabled} type="submit" onClick={submit}>
-          {state.isCreating ? 'Creating' : 'Add your environment'}
-        </button>
+        <Textarea value={extra} onChange={e => setExtra(e.target.value)} />
+        <div className={compose(tokens.marginTop.SPACING_3)}>
+          <Button
+            isLoading={state.isCreating}
+            disabled={disabled}
+            type="submit"
+            onClick={submit}
+          >
+            {state.isCreating ? 'Creating' : 'Add your environment'}
+          </Button>
+        </div>
       </div>
     </div>
   )

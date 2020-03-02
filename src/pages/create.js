@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 import React, { useState } from 'react'
 import { compose, tokens } from 'classy-ui/macro'
+import { Radio, RadioGroup, Select, Button } from '@chakra-ui/core'
 import { navigate } from '@reach/router'
 import FileUploader from 'react-firebase-file-uploader'
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -76,35 +77,28 @@ function App() {
       >
         <h1>Add your environment</h1>
         <h2>Theme</h2>
-        <input
-          type="radio"
-          id="dark"
-          name="theme"
-          value="dark"
-          onChange={() => setTheme('dark')}
-          checked={theme === 'dark'}
-        />
-        <label htmlFor="dark">Dark</label>
-        <br />
-        <input
-          type="radio"
-          id="light"
-          name="theme"
-          value="light"
-          onChange={() => setTheme('light')}
-          checked={theme === 'light'}
-        />
-        <label htmlFor="light">Light</label>
-        <br />
+        <RadioGroup
+          isInline
+          onChange={e => setTheme(e.target.value)}
+          value={theme}
+        >
+          <Radio variantColor="green" value="dark">
+            First
+          </Radio>
+          <Radio variantColor="green" value="light">
+            Light
+          </Radio>
+        </RadioGroup>
+
         <h2>Editor</h2>
         <h3>Select Your editor</h3>
-        <select onChange={e => setEditorType(e.target.value)}>
+        <Select onChange={e => setEditorType(e.target.value)}>
           {state.editors.map(editor => (
             <option key={editor} value="editor">
               {editor}
             </option>
           ))}
-        </select>
+        </Select>
         <h3>Upload a Screenshot</h3>
         {editorScreenshot ? (
           <>
@@ -146,13 +140,13 @@ function App() {
         />
         <h2>Terminal</h2>
         <h3>Select Your terminal</h3>
-        <select onChange={e => setTerminalType(e.target.value)}>
+        <Select onChange={e => setTerminalType(e.target.value)}>
           {state.terminals.map(terminal => (
             <option key={terminal} value={terminal}>
               {terminal}
             </option>
           ))}
-        </select>
+        </Select>
         <h3>Upload a Screenshot</h3>
         {terminalScreenshot ? (
           <>
@@ -165,7 +159,7 @@ function App() {
           <>
             <FileUploader
               accept="image/*"
-              name="avatar"
+              name="editorImage"
               className="file-input"
               randomizeFilename
               storageRef={myFirebase.storage().ref('images')}

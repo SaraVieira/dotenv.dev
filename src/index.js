@@ -9,6 +9,7 @@ import 'codemirror/mode/javascript/javascript'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
 import { compose, tokens } from 'classy-ui/macro'
+import { theme, ThemeProvider } from '@chakra-ui/core'
 import Header from './components/header'
 import Index from './pages/index'
 import Create from './pages/create'
@@ -21,17 +22,19 @@ import 'typeface-inter'
 const overmind = createOvermind(config)
 
 ReactDOM.render(
-  <Provider value={overmind}>
-    <div className={compose(tokens.color.BLUE_900, tokens.height.FULL)}>
-      <Header />
-      <Router>
-        <Index path="/" />
-        <Create path="/create" />
-        <Login path="/login" />
-        <Environment path="/environment/:id" />
-      </Router>
-    </div>
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider value={overmind}>
+      <div className={compose(tokens.color.BLUE_900, tokens.height.FULL)}>
+        <Header />
+        <Router>
+          <Index path="/" />
+          <Create path="/create" />
+          <Login path="/login" />
+          <Environment path="/environment/:id" />
+        </Router>
+      </div>
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root')
 )
 

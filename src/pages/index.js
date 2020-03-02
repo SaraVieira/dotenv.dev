@@ -5,23 +5,14 @@ import { compose, tokens } from 'classy-ui/macro'
 import { useOvermind } from '../overmind/index.ts'
 // import Code from '../components/code'
 import './pages.css'
+import Loading from '../components/loading'
 
 const Index = () => {
   const { state } = useOvermind()
   const [hover, setHover] = useState()
 
   if (state.isLoadingEnvironments) {
-    return (
-      <div
-        className={compose(
-          tokens.marginVertical.SPACING_12,
-          tokens.width.WIDTH_10_12,
-          tokens.marginHorizontal.AUTO
-        )}
-      >
-        Loading
-      </div>
-    )
+    return <Loading />
   }
   return (
     <div

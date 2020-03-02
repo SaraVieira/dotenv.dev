@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { compose, tokens } from 'classy-ui/macro'
 import { useOvermind } from '../overmind/index.ts'
 import Code from '../components/code'
+import Loading from '../components/loading'
 
 const Environment = ({ id }) => {
   const { actions, state } = useOvermind()
@@ -10,17 +11,7 @@ const Environment = ({ id }) => {
   }, [])
 
   if (state.isLoadingEnvironment || !state.environment[id]) {
-    return (
-      <div
-        className={compose(
-          tokens.marginVertical.SPACING_12,
-          tokens.width.WIDTH_10_12,
-          tokens.marginHorizontal.AUTO
-        )}
-      >
-        Loading
-      </div>
-    )
+    return <Loading />
   }
   const env = state.environment[id]
 
@@ -34,28 +25,48 @@ const Environment = ({ id }) => {
     >
       {env.editor && (
         <>
-          <h1>Editor Config</h1>
-          Editor:
-          {env.editor.type}
-          <h2>Screenshot</h2>
-          <img src={env.editor.screenshot} width="100%" alt={env.editor.type} />
-          <h2>Settings</h2>
-          <Code code={env.editor.config} />
+          <div
+            className={compose(
+              tokens.display.GRID,
+              tokens.gridTemplateColumns.COLUMNS_2,
+              tokens.gap.SPACING_4
+            )}
+          >
+            <img
+              src={env.editor.screenshot}
+              width="100%"
+              alt={env.editor.type}
+            />
+            <div>
+              Editor:
+              {env.editor.type}
+              <h2>Settings</h2>
+              <Code code={env.editor.config} />
+            </div>
+          </div>
         </>
       )}
       {env.terminal && (
         <>
-          <h1>Terminal Config</h1>
-          Terminal:
-          {env.terminal.type}
-          <h2>Screenshot</h2>
-          <img
-            src={env.terminal.screenshot}
-            width="100%"
-            alt={env.terminal.type}
-          />
-          <h2>Settings</h2>
-          <Code code={env.terminal.config} />
+          <div
+            className={compose(
+              tokens.display.GRID,
+              tokens.gridTemplateColumns.COLUMNS_2,
+              tokens.gap.SPACING_4
+            )}
+          >
+            <img
+              src={env.terminal.screenshot}
+              width="100%"
+              alt={env.terminal.type}
+            />
+            <div>
+              Terminal:
+              {env.terminal.type}
+              <h2>Settings</h2>
+              <Code code={env.terminal.config} />
+            </div>
+          </div>
         </>
       )}
       {env.extra && (

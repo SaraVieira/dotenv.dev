@@ -1,7 +1,14 @@
 /* eslint-disable operator-linebreak */
 import React, { useState } from 'react'
 import { compose, tokens } from 'classy-ui/macro'
-import { Radio, RadioGroup, Select, Button, Textarea } from '@chakra-ui/core'
+import {
+  Radio,
+  RadioGroup,
+  Select,
+  Button,
+  Textarea,
+  Divider
+} from '@chakra-ui/core'
 import { navigate } from '@reach/router'
 import FileUploader from 'react-firebase-file-uploader'
 import { Controlled as CodeMirror } from 'react-codemirror2'
@@ -141,6 +148,7 @@ function App() {
             setVscodeConfig(value)
           }}
         />
+        <Divider />
         <h2>Terminal</h2>
         <h3>Select Your terminal</h3>
         <Select onChange={e => setTerminalType(e.target.value)}>

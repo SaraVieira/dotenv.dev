@@ -43,21 +43,21 @@ export const addEnvironment: AsyncAction = async ({ state }, data: any) => {
 
 export const getEnvironment: AsyncAction = async ({ state }, id: any) => {
   const newEnv = state.environments.findIndex(e => e.id === id)
-  if (state.environments.find(e => e.id === id)) {
-    state.environment[id] = state.environments[newEnv]
-  } else {
-    state.isLoadingEnvironment = true
-    var docRef = db.collection('environments').doc(id)
-    const doc = await docRef.get()
-    state.isLoadingEnvironment = false
+  // if (state.environments.find(e => e.id === id)) {
+  //   state.environment[id] = state.environments[newEnv]
+  // } else {
+  state.isLoadingEnvironment = true
+  var docRef = db.collection('environments').doc(id)
+  const doc = await docRef.get()
+  state.isLoadingEnvironment = false
 
-    if (doc.exists) {
-      state.environment[id] = doc.data() as Environment
-    } else {
-      // doc.data() will be undefined in this case
-      console.log('No such document!')
-    }
+  if (doc.exists) {
+    state.environment[id] = doc.data() as Environment
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!')
   }
+  //}
 }
 
 export const getEnvironments: AsyncAction = async ({ state }) => {

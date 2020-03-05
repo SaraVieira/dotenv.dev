@@ -1,6 +1,9 @@
 import React from 'react'
 import { compose, tokens } from 'classy-ui/macro'
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
+
+import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button'
+import '@reach/menu-button/styles.css'
 import Logo from './logo'
 import { useOvermind } from '../overmind/index.ts'
 
@@ -53,17 +56,33 @@ const Header = () => {
           >
             Post your environment
           </Link>
-          <img
-            height="40px"
-            className={compose(
-              tokens.borderRadius.SMALL,
-              tokens.borderColor.GRAY_300,
-              tokens.borderWidth.WIDTH_2,
-              tokens.borderStyle.SOLID
-            )}
-            src={state.user.photoURL}
-            alt={state.user.username}
-          />
+          <Menu>
+            <MenuButton
+              className={compose(
+                tokens.backgroundColor.TRANSPARENT,
+                tokens.padding.NONE,
+                tokens.borderWidth.NONE
+              )}
+            >
+              <img
+                height="40px"
+                className={compose(
+                  tokens.borderRadius.SMALL,
+                  tokens.borderColor.GRAY_300,
+                  tokens.borderWidth.WIDTH_2,
+                  tokens.borderStyle.SOLID
+                )}
+                src={state.user.photoURL}
+                alt={state.user.username}
+              />
+            </MenuButton>
+            <MenuList>
+              <MenuItem onSelect={() => navigate('/favorites')}>
+                Favorites
+              </MenuItem>
+              <MenuItem onSelect={actions.logout}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         </div>
       )}
     </nav>

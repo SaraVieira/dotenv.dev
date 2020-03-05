@@ -23,6 +23,35 @@ const Environment = ({ id }) => {
         tokens.marginHorizontal.AUTO
       )}
     >
+      <div
+        className={compose(
+          tokens.display.FLEX,
+          tokens.marginVertical.SPACING_4
+        )}
+      >
+        <img
+          className={compose(
+            tokens.borderRadius.FULL,
+            tokens.marginRight.SPACING_4,
+            tokens.marginBottom.SPACING_8
+          )}
+          src={env.user.photoURL}
+          alt={env.user.displayName}
+          style={{
+            width: 40,
+            height: 40
+          }}
+        />
+        <div>
+          <span className={compose(tokens.display.BLOCK)}>
+            {env.user.displayName}
+          </span>
+          <a href={`https://twitter.com/${env.user.username}`}>
+            @{env.user.username}
+          </a>
+        </div>
+      </div>
+      <h2>{env.editor.type}</h2>
       {env.editor && (
         <>
           <div
@@ -32,20 +61,22 @@ const Environment = ({ id }) => {
               tokens.gap.SPACING_4
             )}
           >
-            <img
-              src={env.editor.screenshot}
-              width="100%"
-              alt={env.editor.type}
-            />
-            <div>
-              Editor:
-              {env.editor.type}
-              <h2>Settings</h2>
+            <section>
+              <h3>ScreenShot</h3>
+              <img
+                src={env.editor.screenshot}
+                width="100%"
+                alt={env.editor.type}
+              />
+            </section>
+            <section>
+              <h3>Settings</h3>
               <Code code={env.editor.config} />
-            </div>
+            </section>
           </div>
         </>
       )}
+      <h2>{env.terminal.type}</h2>
       {env.terminal && (
         <>
           <div
@@ -55,15 +86,16 @@ const Environment = ({ id }) => {
               tokens.gap.SPACING_4
             )}
           >
-            <img
-              src={env.terminal.screenshot}
-              width="100%"
-              alt={env.terminal.type}
-            />
             <div>
-              Terminal:
-              {env.terminal.type}
-              <h2>Settings</h2>
+              <h3>ScreenShot</h3>
+              <img
+                src={env.terminal.screenshot}
+                width="100%"
+                alt={env.terminal.type}
+              />
+            </div>
+            <div>
+              <h3>Settings</h3>
               <Code code={env.terminal.config} />
             </div>
           </div>
@@ -71,7 +103,7 @@ const Environment = ({ id }) => {
       )}
       {env.extra && (
         <>
-          <h2>Extra Remarks</h2>
+          <h3>Extra Remarks</h3>
           <p>{env.extra}</p>
         </>
       )}

@@ -46,7 +46,11 @@ const Environment = ({ id }) => {
           <span className={compose(tokens.display.BLOCK)}>
             {env.user.displayName}
           </span>
-          <a href={`https://twitter.com/${env.user.username}`}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://twitter.com/${env.user.username}`}
+          >
             @{env.user.username}
           </a>
         </div>

@@ -9,7 +9,7 @@
     "@reach/menu-button": "^0.8.5",
     "@reach/router": "^1.3.3",
     "classy-ui": "^7.0.0",
-    "codemirror": "^5.52.0",
+    "codemirror": "^5.58.2",
     "emotion-theming": "^10.0.27",
     "firebase": "^7.9.3",
     "overmind": "^22.0.5",
